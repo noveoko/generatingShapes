@@ -1,0 +1,4 @@
+nmax,10000
+startShape,startcircle.svg
+generatedShape,heart
+targetShape,heart
