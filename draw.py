@@ -14,7 +14,7 @@ targetShape = constants[3].split(",")[-1]
 #End of constants set up --------------------------
 
 #generates a single random SVG image by manipulating vertice values
-def createPNG(fname=generatedShape):
+def createPNG(fname=generatedShape+".png"):
     file = open(startShape).read()
     soup = bs(file, 'lxml')
     dimensions = soup.find("path")
@@ -40,8 +40,8 @@ def createPNG(fname=generatedShape):
     dimensions['d'] = reinsert
 
     save_this = str(soup)
-    #update the SVG file with new iamges
-    fileName = f"genimages/{fname}.png"
+    #update the SVG file with new images
+    fileName = f"genimages/x.svg"
     try:
         svg2png(bytestring=save_this,write_to=fileName)
     except Exception as ee:
@@ -52,9 +52,9 @@ best_result = []
 closest_score = 28563242999.0
 while count < nmax:
     createPNG()
-    save_path = f"genimages/{generatedShape}.png"
+    save_path = f"genimages/x.svg"
     try:
-        result = imagedif.main(f"{targetShape}.png", save_path)
+        result = imagedif.main(f"x.png", save_path)
         mn_dist = float(result[0])
         count+=1
         if mn_dist < closest_score :
@@ -62,7 +62,7 @@ while count < nmax:
             best_result = [mn_dist, save_path]
             print(count, nmax-count, closest_score)
             try:
-                shutil.move("genimages/{generatedShape}.png", "topimages/{generatedShape}.png")
+                shutil.move("genimages/x.png", "topimages/x.png")
             except Exception as ef:
                 print(f"Tried to move file but: {ef}")
         else:
